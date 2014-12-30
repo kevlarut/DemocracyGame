@@ -2,17 +2,26 @@ var democracyGame = angular.module('democracyGame');
 
 democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', function($scope, $timeout, constantsService, gameDataService) {
 		
-	$scope.approvalRating = function() {
-		var rate = constantsService.baseApprovalRating;
+	$scope.getPolicyModifier = function(modifierName) {
+		
+		var rate = 1;
 		
 		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
-			var modifier = $scope.enactedPolicies[i].approvalRating;
-			if (modifier != undefined) {
-				rate += rate * modifier;
+			var policy = $scope.enactedPolicies[i];
+			for (var j = 0; j < policy.effects.length; j++) {
+				var effect = policy.effects[j];
+				if (effect.name === modifierName) {
+					rate *= 1 + effect.modifier;
+				}
 			}
 		}
 		
 		return rate;
+	};
+		
+	$scope.approvalRating = function() {
+		var rate = constantsService.baseApprovalRating;
+		return rate * $scope.getPolicyModifier('approvalRating');
 	};
 	$scope.democraticAction = '';
 	$scope.enactedPolicies = [];
@@ -35,29 +44,12 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	
 	$scope.taxRate = function() {
 		var rate = constantsService.baseTaxRate;
-		
-		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
-			var modifier = $scope.enactedPolicies[i].taxRate;
-			if (modifier != undefined) {
-				rate += rate * modifier;
-			}
-		}
-		
-		return rate;
+		return rate * $scope.getPolicyModifier('taxRate');		
 	};
 	$scope.money = 0;
-	$scope.perCapitaIncomePerYear = function() {
-		
-		var income = $scope.averageIQ();
-	
-		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
-			var modifier = $scope.enactedPolicies[i].perCapitaIncome;
-			if (modifier != undefined) {
-				income += income * modifier;
-			}
-		}
-	
-		return income; 		
+	$scope.perCapitaIncomePerYear = function() {		
+		var rate = $scope.averageIQ();
+		return rate * $scope.getPolicyModifier('perCapitaIncome');
 	};
 	$scope.perCapitaIncomePerSecond = function() {
 		return $scope.perCapitaIncomePerYear() / constantsService.secondsPerYear;
@@ -67,16 +59,8 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	};	
 	
 	$scope.carryingCapacity = function() {		
-		var capacity = constantsService.baseCarryingCapacity;
-		
-		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
-			var modifier = $scope.enactedPolicies[i].carryingCapacity;
-			if (modifier != undefined) {
-				capacity += capacity * modifier;
-			}
-		}
-		
-		return capacity;
+		var rate = constantsService.baseCarryingCapacity;
+		return rate * $scope.getPolicyModifier('carryingCapacity');
 	};
 		
 	$scope.birthRate = function() {	
@@ -93,15 +77,7 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	$scope.malthusianParameter = function() {
 		var rate = constantsService.baseMalthusianParameter;
-	
-		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
-			var modifier = $scope.enactedPolicies[i].birthRate;
-			if (modifier != undefined) {
-				rate = rate + rate * modifier;
-			}
-		}
-	
-		return rate; 
+		return rate * $scope.getPolicyModifier('birthRate');
 	};
 	$scope.population = function() {
 		var population = 0;

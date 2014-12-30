@@ -21,10 +21,58 @@ democracyGame.service('gameDataService', function() {
 	];
 	
 	this.policies = [
-		{name: 'Free contraceptives', cost: 1000, birthRate: -0.05, perCapitaIncome: 0.05, description: '-5% birth rate, +5% per capita income'},		
-		{name: 'Raise taxes', cost: 7500, taxRate: 0.05, approvalRating: -0.05, description: '+5% tax rate, -5% approval rating'},
-		{name: 'Charter an agricultural college', cost: 100000, perCapitaIncome: 0.10, description: '+10% per capita income'},
-		{name: 'Annex land', cost:1000000, carryingCapacity: 1.0, description: 'Double carrying capacity'}
+		{
+			name: 'Free contraceptives', 
+			cost: 1000, 
+			description: '-5% birth rate, +5% per capita income',
+			effects: [
+				{
+					name: 'birthRate',
+					modifier: -0.05
+				},
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.05
+				}
+			]
+		},		
+		{
+			name: 'Raise taxes', 
+			cost: 7500, 
+			description: '+5% tax rate, -5% approval rating',
+			effects: [
+				{
+					name: 'taxRate',
+					modifier: 0.05
+				},
+				{
+					name: 'approvalRating',
+					modifier: -0.05
+				}
+			]
+		},
+		{
+			name: 'Charter an agricultural college', 
+			cost: 100000, 
+			description: '+10% per capita income',
+			effects: [
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.1
+				}
+			]
+		},
+		{
+			name: 'Annex land', 
+			cost:1000000, 
+			description: 'Double carrying capacity',
+			effects: [
+				{
+					name: 'carryingCapacity',
+					modifier: 1.0
+				}
+			]
+		}
 	];
 	
 	this.races = [
