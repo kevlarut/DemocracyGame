@@ -86,8 +86,8 @@
 						<h2>Population</h2>
 					
 						<div class="progress">
-						  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{population()}}" aria-valuemin="0" aria-valuemax="{{carryingCapacity}}" style="max-width:100%; width: {{population() / carryingCapacity * 100}}%;">
-							{{population() | number : 0}} / {{carryingCapacity | number : 0}} Total Population
+						  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{population()}}" aria-valuemin="0" aria-valuemax="{{carryingCapacity()}}" style="max-width:100%; width: {{population() / carryingCapacity() * 100}}%;">
+							{{population() | number : 0}} / {{carryingCapacity() | number : 0}} Total Population
 						  </div>
 						</div>
 						
@@ -102,7 +102,7 @@
 						<div ng-repeat="race in races">
 							{{race.name}}s: {{race.population | number : 0}}
 						</div>
-						<div>Carrying capacity: {{carryingCapacity}}</div>
+						<div>Carrying capacity: {{carryingCapacity() | number}} souls</div>
 					
 					</div>
 				</div>				

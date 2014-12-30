@@ -66,11 +66,22 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		return $scope.population() * $scope.perCapitaIncomePerSecond() * $scope.taxRate() / 100;
 	};	
 	
-	$scope.carryingCapacity = 1000;
+	$scope.carryingCapacity = function() {		
+		var capacity = constantsService.baseCarryingCapacity;
+		
+		for (var i = 0; i < $scope.enactedPolicies.length; i++) {
+			var modifier = $scope.enactedPolicies[i].carryingCapacity;
+			if (modifier != undefined) {
+				capacity += capacity * modifier;
+			}
+		}
+		
+		return capacity;
+	};
 		
 	$scope.birthRate = function() {	
 		
-		var K = $scope.carryingCapacity;
+		var K = $scope.carryingCapacity();
 		var N0 = $scope.population();
 		var r = $scope.malthusianParameter();
 		var t = 1;
@@ -114,7 +125,7 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		for (var i = 0; i < gameDataService.races.length; i++) {
 			var race = gameDataService.races[i];
 			var outGroupPopulation = totalPopulation - race.population;
-			var carryingCapacity = $scope.carryingCapacity - outGroupPopulation;
+			var carryingCapacity = $scope.carryingCapacity() - outGroupPopulation;
 			race.population = $scope.populationGrowth(race.population, carryingCapacity);
 		}
 	}
