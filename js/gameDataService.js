@@ -22,7 +22,8 @@ democracyGame.service('gameDataService', function() {
 	
 	this.policies = [
 		{name: 'Free contraceptives', cost: 1000, birthRate: -0.05, perCapitaIncome: 0.05, description: '-5% birth rate, +5% per capita income'},		
-		{name: 'Raise taxes', cost: 7500, taxRate: 0.05, approvalRating: -0.05, description: '+5% tax rate, -5% approval rating'}
+		{name: 'Raise taxes', cost: 7500, taxRate: 0.05, approvalRating: -0.05, description: '+5% tax rate, -5% approval rating'},
+		{name: 'Charter an agricultural college', cost: 100000, perCapitaIncome: 0.10, description: '+10% per capita income'}
 	];
 	
 	this.races = [

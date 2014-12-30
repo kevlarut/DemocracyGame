@@ -58,7 +58,7 @@
 							
 						<p ng-repeat="race in races">
 							<img ng-src="{{'img/' + race.name + '.jpg'}}" class="raceicon" />
-							<button ng-disabled="money < race.immigrationCost">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
+							<button ng-disabled="money < race.immigrationCost" ng-click="buyImmigrant(race)">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
 						</p>
 					
 					</div>
