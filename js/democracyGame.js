@@ -1,0 +1,1 @@
+var democracyGame = angular.module('democracyGame', []);

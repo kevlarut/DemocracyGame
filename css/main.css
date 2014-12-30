@@ -1,0 +1,85 @@
+button {
+	background: white;
+	
+	background: -webkit-linear-gradient(white, #9cc); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(white, #9cc); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(white, #9cc); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(white, #9cc); /* Standard syntax */
+	
+	border: 1px solid #9cc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+button:disabled,
+button:disabled:hover {
+	background: -webkit-linear-gradient(white, #ccc); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(white, #ccc); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(white, #ccc); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(white, #ccc); /* Standard syntax */
+	
+	border-color: #ccc;
+	color: #666;
+}
+
+button:hover {
+	background: -webkit-linear-gradient(white, #cff); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(white, #cff); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(white, #cff); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(white, #cff); /* Standard syntax */
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+.navbar-header {
+	padding: 10px 0;
+}
+.navbar-brand {
+	float: none;
+	padding: 0;
+}
+.navbar-brand img {
+	height: 50px;
+}
+
+@media (min-width: 768px) {
+	.navbar-nav {
+		float: right;
+	}
+	
+	.navbar-nav>li>a {
+		padding: 15px;
+	}
+}
+
+.jumbotron {
+	text-align: center;
+	background: #360;
+	color: #ffc;
+	margin-bottom: 0;
+	padding: 15px;
+}
+.jumbotron button {
+	background: -webkit-linear-gradient(#ffc, #dda); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#ffc, #dda); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#ffc, #dda); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#ffc, #dda); /* Standard syntax */
+	color: #333;
+	padding: 10px 30px;
+	font-size: 32px;
+	border: none;
+}
+.jumbotron button:hover {
+	background: #ffc;
+}
+
+.policy {
+	margin-bottom: 10px;
+}
+
+.raceicon {
+	border-radius: 10px;
+	width: 50px;
+	height: 50px;
+}
