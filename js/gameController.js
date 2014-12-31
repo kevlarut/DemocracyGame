@@ -1,6 +1,6 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', 'playerService', function($scope, $timeout, constantsService, gameDataService, playerService) {
+democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', 'playerService', 'localStorageService', function($scope, $timeout, constantsService, gameDataService, playerService, localStorageService) {
 
 	$scope.murderRate = function() {
 		var rate = 0;
@@ -125,7 +125,7 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	};
 	$scope.doSomethingDemocratic = function() {
 		playerService.money += 100;
-		$scope.getNextDemocraticAction();		
+		$scope.getNextDemocraticAction();	
 	};
 	$scope.buyImmigrant = function(race) {
 		playerService.money -= race.immigrationCost;
@@ -159,10 +159,13 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		playerService.money += $scope.incomePerSecond() / constantsService.framesPerSecond;
 		$scope.growPopulationForEachRace();
 
+		localStorageService.saveToLocalStorage();	
+		
 		$scope.lastUpdated = now;		
 		$timeout($scope.update, 1000 / constantsService.framesPerSecond);
 	};
 	
+	localStorageService.loadFromLocalStorage();
 	$scope.getNextDemocraticAction();
 	$scope.update();
 	
