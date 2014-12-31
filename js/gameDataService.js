@@ -72,6 +72,17 @@ democracyGame.service('gameDataService', function() {
 					modifier: 1.0
 				}
 			]
+		},
+		{
+			name: 'Build a police station', 
+			cost:1000000, 
+			description: 'Reduce crime rate in half',
+			effects: [
+				{
+					name: 'crimeRate',
+					modifier: -0.5
+				}
+			]
 		}
 	];
 	

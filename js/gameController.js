@@ -2,6 +2,18 @@ var democracyGame = angular.module('democracyGame');
 
 democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', function($scope, $timeout, constantsService, gameDataService) {
 		
+	$scope.murderRate = function() {
+		var rate = 0;
+		for (var i = 0; i < gameDataService.races.length; i++) {
+			var race = gameDataService.races[i];
+			if (race.iq < 100) {
+				rate += race.population;
+			}
+		}
+		rate /= 5000 * $scope.getPolicyModifier('crimeRate');
+		return rate;
+	};
+		
 	$scope.getPolicyModifier = function(modifierName) {
 		
 		var rate = 1;
