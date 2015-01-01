@@ -81,7 +81,7 @@
 						<h2>Policies</h2>				
 					
 						<div ng-repeat="policy in policyService.allPolicies() | orderBy : 'cost'">
-							<button ng-click="policyService.buyPolicy(policy)" ng-disabled="!policyService.canBuyPolicy(policy)" class="policy" ng-show="!policy.restricted">
+							<button ng-click="policyService.buyPolicy(policy)" ng-disabled="!policyService.canBuyPolicy(policy)" class="policy" ng-show="policyService.canShowPolicyInBuyList(policy)">
 							{{policy.name}} {{policy.cost | currency}}<br />
 							{{policy.description}}
 							</button>

@@ -129,11 +129,11 @@ democracyGame.service('gameDataService', function() {
 		{
 			name: 'Charter an agricultural college', 
 			cost: 100000, 
-			description: '+10% per capita income',
+			description: 'Double per capita income',
 			effects: [
 				{
 					name: 'perCapitaIncome',
-					modifier: 0.1
+					modifier: 1
 				}
 			]
 		},
