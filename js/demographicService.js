@@ -40,10 +40,12 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		return this.perCapitaIncomePerYear() / constantsService.secondsPerYear;
 	};
 	
-	this.populationGrowthRate = function() {	
+	this.populationGrowthRate = function() {			
 		var K = this.carryingCapacity();
 		var N0 = this.population();		
-		var Nt = this.populationGrowth(N0, K);		
+		var t = 1;
+		var Nt = this.populationGrowth(N0, K, t);
+		
 		return (Nt / N0 * 1000) - 1000;
 	};
 		
@@ -61,11 +63,10 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		return population;
 	};
 	
-	this.populationGrowth = function(initialPopulation, carryingCapacity) {		
+	this.populationGrowth = function(initialPopulation, carryingCapacity, t) {		
 		var K = carryingCapacity;
 		var N0 = initialPopulation;
 		var r = this.malthusianParameter();
-		var t = 1 / constantsService.secondsPerYear / constantsService.framesPerSecond;
 		var Nt = K / (1 + ((K - N0) / N0) * Math.pow(Math.E, 0 - r * t) );
 		
 		return Nt;
@@ -73,7 +74,8 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 	
 	this.growPopulationForEachAndEveryRace = function() {		
 		var totalPopulation = this.population();	
-		var totalPopulationGrowth = this.populationGrowth(totalPopulation, this.carryingCapacity());
+		var t = 1 / constantsService.secondsPerYear / constantsService.framesPerSecond;
+		var totalPopulationGrowth = this.populationGrowth(totalPopulation, this.carryingCapacity(), t);
 	
 		for (var i = 0; i < playerService.races.length; i++) {
 			var race = playerService.races[i];
