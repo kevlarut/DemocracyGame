@@ -1,6 +1,6 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.service('eventService', function(gameDataService, playerService) {
+democracyGame.service('eventService', function(demographicService, gameDataService, playerService) {
 		
 	this.clearCurrentEventAndBuyPolicyByName = function(nameOfPolicyToEnact) {
 		$scope.currentEvent = null;
@@ -18,7 +18,9 @@ democracyGame.service('eventService', function(gameDataService, playerService) {
 		return true;
 	};
 	
-	this.spawnNewEventPerhaps = function(currentEvent, approvalRating) {
+	this.spawnNewEventPerhaps = function(currentEvent) {
+		var approvalRating = demographicService.approvalRating();
+		
 		if (currentEvent === null) {
 			if (approvalRating < 20) {
 				if (Math.random() >= 0.99) {

@@ -9,6 +9,7 @@
 	
 	<script src="js/democracyGame.js"></script>
 	<script src="js/constantsService.js"></script>
+	<script src="js/demographicService.js"></script>
 	<script src="js/eventService.js"></script>
 	<script src="js/gameDataService.js"></script>
 	<script src="js/localStorageService.js"></script>
@@ -58,7 +59,7 @@
 						<p>Tax rate: {{taxRate() | number : 2}}%<br />
 						Annual per capita income: {{perCapitaIncomePerYear() | currency}}<br />
 						Population growth rate: {{birthRate() | number : 2}} per thousand per year<br />
-						Approval rating: {{approvalRating() | number : 2}}%</p>
+						Approval rating: {{demographicService.approvalRating() | number : 2}}%</p>
 							
 						<p ng-repeat="race in playerService.races">
 							<img ng-src="{{'img/' + race.name + '.jpg'}}" class="raceicon" />
@@ -99,33 +100,29 @@
 						<h2>Population</h2>
 					
 						<div class="progress">
-						  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{population()}}" aria-valuemin="0" aria-valuemax="{{carryingCapacity()}}" style="max-width:100%; width: {{population() / carryingCapacity() * 100}}%;">
-							{{population() | number : 0}} / {{carryingCapacity() | number : 0}} Total Population
+						  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{population()}}" aria-valuemin="0" aria-valuemax="{{demographicService.carryingCapacity()}}" style="max-width:100%; width: {{demographicService.population() / demographicService.carryingCapacity() * 100}}%;">
+							{{demographicService.population() | number : 0}} / {{demographicService.carryingCapacity() | number : 0}} Total Population
 						  </div>
 						</div>
 						
 						<div class="progress">
-							<div ng-repeat="race in playerService.races" class="progress-bar" style="background: {{race.color}}; width: {{populationPercentage(race.population) | number : 3}}%">
-								{{populationPercentage(race.population) | number : 0}}% {{race.name}}
+							<div ng-repeat="race in playerService.races" class="progress-bar" style="background: {{race.color}}; width: {{demographicService.populationPercentage(race.population) | number : 3}}%">
+								{{demographicService.populationPercentage(race.population) | number : 0}}% {{race.name}}
 							</div>
 						</div>
 					
-						<div>Population: {{population() | number : 0}}</div>
-						<div>Average IQ: {{averageIQ() | number : 0}}</div>
+						<div>Population: {{demographicService.population() | number : 0}}</div>
+						<div>Average IQ: {{demographicService.averageIQ() | number : 0}}</div>
 						<div ng-repeat="race in playerService.races">
 							{{race.name}}s: {{race.population | number : 0}}
 						</div>
-						<div>Carrying capacity: {{carryingCapacity() | number}} souls</div>
-						<div>Murder rate: {{ murderRate() | number : 0}} per 100,000 inhabitants</div>
+						<div>Carrying capacity: {{demographicService.carryingCapacity() | number}} souls</div>
+						<div>Murder rate: {{ demographicService.murderRate() | number : 0}} per 100,000 inhabitants</div>
 					
 					</div>
-				</div>				
-			
-				
-				
+				</div>
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 </body>
 </html>
