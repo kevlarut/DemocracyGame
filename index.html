@@ -9,9 +9,11 @@
 	
 	<script src="js/democracyGame.js"></script>
 	<script src="js/constantsService.js"></script>
+	<script src="js/eventService.js"></script>
 	<script src="js/gameDataService.js"></script>
 	<script src="js/localStorageService.js"></script>
 	<script src="js/playerService.js"></script>
+	<script src="js/policyService.js"></script>
 	<script src="js/gameController.js"></script>
 	
 	<title>Avocado Republic</title>
@@ -66,10 +68,19 @@
 					</div>
 					<div class="col-md-4">	
 						
+						<div ng-show="currentEvent !== null" class="event">						
+							<h2>{{currentEvent.title}}</h2>
+							<img ng-src="{{ currentEvent ? 'img/events/' + currentEvent.name + '.jpg' : ''}}" />
+							<p>{{currentEvent.description}}</p>
+							
+							<button ng-repeat="choice in currentEvent.choices" ng-click="eventService.clearCurrentEventAndBuyPolicyByName(choice.nameOfPolicyToEnactIfChosen)" style="margin-bottom:10px;">{{choice.title}}</button>
+							
+						</div>
+						
 						<h2>Policies</h2>				
 					
-						<div ng-repeat="policy in policies">
-							<button ng-click="buyPolicy(policy)" ng-disabled="!canBuyPolicy(policy)" class="policy">
+						<div ng-repeat="policy in gameDataService.policies">
+							<button ng-click="policyService.buyPolicy(policy)" ng-disabled="!policyService.canBuyPolicy(policy)" class="policy" ng-show="!policy.restricted">
 							{{policy.name}} {{policy.cost | currency}}<br />
 							{{policy.description}}
 							</button>

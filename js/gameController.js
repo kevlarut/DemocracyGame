@@ -1,6 +1,11 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', 'playerService', 'localStorageService', function($scope, $timeout, constantsService, gameDataService, playerService, localStorageService) {
+democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'gameDataService', 'playerService', 'localStorageService', 'policyService', 'eventService', function($scope, $timeout, constantsService, gameDataService, playerService, localStorageService, policyService, eventService) {
+
+	$scope.eventService = eventService;
+	$scope.gameDataService = gameDataService;
+	$scope.playerService = playerService;
+	$scope.policyService = policyService;
 
 	$scope.murderRate = function() {
 		var rate = 0;
@@ -10,34 +15,15 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 				rate += race.population;
 			}
 		}
-		rate /= 5000 * $scope.getPolicyModifier('crimeRate');
-		return rate;
-	};
-		
-	$scope.getPolicyModifier = function(modifierName) {
-		
-		var rate = 1;
-		
-		for (var i = 0; i < playerService.enactedPolicies.length; i++) {
-			var policy = playerService.enactedPolicies[i];
-			for (var j = 0; j < policy.effects.length; j++) {
-				var effect = policy.effects[j];
-				if (effect.name === modifierName) {
-					rate *= 1 + effect.modifier;
-				}
-			}
-		}
-		
+		rate /= 5000 * policyService.getPolicyModifier('crimeRate');
 		return rate;
 	};
 		
 	$scope.approvalRating = function() {
 		var rate = constantsService.baseApprovalRating;
-		return rate * $scope.getPolicyModifier('approvalRating');
+		return rate * policyService.getPolicyModifier('approvalRating');
 	};
 	$scope.democraticAction = '';
-	
-	$scope.policies = gameDataService.policies;
 	
 	$scope.populationPercentage = function(population) {
 		return population / $scope.population() * 100;
@@ -54,12 +40,12 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	
 	$scope.taxRate = function() {
 		var rate = constantsService.baseTaxRate;
-		return rate * $scope.getPolicyModifier('taxRate');		
+		return rate * policyService.getPolicyModifier('taxRate');		
 	};
-	$scope.playerService = playerService;
+	
 	$scope.perCapitaIncomePerYear = function() {		
 		var rate = $scope.averageIQ();
-		return rate * $scope.getPolicyModifier('perCapitaIncome');
+		return rate * policyService.getPolicyModifier('perCapitaIncome');
 	};
 	$scope.perCapitaIncomePerSecond = function() {
 		return $scope.perCapitaIncomePerYear() / constantsService.secondsPerYear;
@@ -70,7 +56,7 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	
 	$scope.carryingCapacity = function() {		
 		var rate = constantsService.baseCarryingCapacity;
-		return rate * $scope.getPolicyModifier('carryingCapacity');
+		return rate * policyService.getPolicyModifier('carryingCapacity');
 	};
 		
 	$scope.birthRate = function() {	
@@ -87,7 +73,7 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	$scope.malthusianParameter = function() {
 		var rate = constantsService.baseMalthusianParameter;
-		return rate * $scope.getPolicyModifier('birthRate');
+		return rate * policyService.getPolicyModifier('birthRate');
 	};
 	$scope.population = function() {
 		var population = 0;
@@ -131,27 +117,9 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		playerService.money -= race.immigrationCost;
 		race.population++;
 	};
-	
-	$scope.canBuyPolicy = function(policy) {
-		var cost = 0;
-		for (var i = 0; i < playerService.enactedPolicies.length; i++) {
-			if (playerService.enactedPolicies[i].name === policy.name) {
-				return false;
-				break;
-			}
-		}
-		if (playerService.money < policy.cost) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	};
-	$scope.buyPolicy = function(policy) {
-		playerService.money -= policy.cost;
-		playerService.enactedPolicies.push(policy);
-	}
-	
+		
+	$scope.currentEvent = null;
+		
 	$scope.update = function() {		
 		now = new Date();
 		var timeSinceLastUpdate = now.getTime() - $scope.lastUpdated.getTime();
@@ -159,6 +127,11 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		playerService.money += $scope.incomePerSecond() / constantsService.framesPerSecond;
 		$scope.growPopulationForEachRace();
 
+		var newEvent = eventService.spawnNewEventPerhaps($scope.currentEvent, $scope.approvalRating());
+		if (newEvent) {
+			$scope.currentEvent = newEvent;
+		}
+		
 		localStorageService.saveToLocalStorage();	
 		
 		$scope.lastUpdated = now;		
