@@ -1,6 +1,7 @@
 var democracyGame = angular.module('democracyGame');
 
 democracyGame.service('localStorageService', function(playerService) {
+	
 	this.loadFromLocalStorage = function() {
 		var savedGame = localStorage.getItem('game');
 		if (savedGame != null && typeof savedGame != 'undefined') {

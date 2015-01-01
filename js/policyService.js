@@ -34,7 +34,33 @@ democracyGame.service('policyService', function(gameDataService, playerService) 
 		return null;
 	};
 	
-	this.getPolicyModifier = function(modifierName) {
+	this.getAttributeValueAfterModificationByPolicies = function(attributeName, baseValue) {	
+		var value = baseValue;
+		value += this.getPolicyAbsoluteIncrease(attributeName);
+		value *= this.getPolicyModifier(attributeName);
+		return value;
+	};
+	
+	this.getPolicyAbsoluteIncrease = function(attributeName) {
+		
+		var increase = 0;
+		
+		for (var i = 0; i < playerService.enactedPolicyNames.length; i++) {
+			var policy = this.getPolicyByName(playerService.enactedPolicyNames[i]);
+			for (var j = 0; j < policy.effects.length; j++) {
+				var effect = policy.effects[j];
+				if (effect.name === attributeName) {
+					if (typeof effect.absoluteIncrease !== 'undefined') {
+						increase += effect.absoluteIncrease;
+					}
+				}
+			}
+		}
+		
+		return increase;
+	};
+	
+	this.getPolicyModifier = function(attributeName) {
 		
 		var rate = 1;
 		
@@ -42,8 +68,10 @@ democracyGame.service('policyService', function(gameDataService, playerService) 
 			var policy = this.getPolicyByName(playerService.enactedPolicyNames[i]);
 			for (var j = 0; j < policy.effects.length; j++) {
 				var effect = policy.effects[j];
-				if (effect.name === modifierName) {
-					rate *= 1 + effect.modifier;
+				if (effect.name === attributeName) {
+					if (typeof effect.modifier !== 'undefined') {
+						rate *= 1 + effect.modifier;
+					}
 				}
 			}
 		}

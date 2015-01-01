@@ -12,6 +12,7 @@
 	<script src="js/demographicService.js"></script>
 	<script src="js/eventService.js"></script>
 	<script src="js/gameDataService.js"></script>
+	<script src="js/immigrationService.js"></script>
 	<script src="js/localStorageService.js"></script>
 	<script src="js/playerService.js"></script>
 	<script src="js/policyService.js"></script>
@@ -59,11 +60,13 @@
 						<p>Tax rate: {{taxRate() | number : 2}}%<br />
 						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
 						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
-						Approval rating: {{demographicService.approvalRating() | number : 2}}%</p>
+						Approval rating: {{demographicService.approvalRating() | number : 2}}%<br />
+						Welfare saturation, on a scale of 0-100: {{demographicService.welfareSaturation()}}<br />
+						Immigrants per second: {{immigrationService.immigrantsPerSecond()}}</p>
 							
 						<p ng-repeat="race in playerService.races">
 							<img ng-src="{{'img/' + race.name + '.jpg'}}" class="raceicon" />
-							<button ng-disabled="playerService.money < race.immigrationCost" ng-click="buyImmigrant(race)">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
+							<button ng-disabled="playerService.money < race.immigrationCost" ng-click="immigrationService.buyImmigrant(race)">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
 						</p>
 					
 					</div>

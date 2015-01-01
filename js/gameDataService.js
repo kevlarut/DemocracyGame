@@ -134,6 +134,10 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'perCapitaIncome',
 					modifier: 2
+				},
+				{
+					name: 'welfare',
+					absoluteIncrease: 5
 				}
 			]
 		},
@@ -167,6 +171,10 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'crimeRate',
 					modifier: -0.5
+				},
+				{
+					name: 'welfare',
+					absoluteIncrease: -5
 				}
 			]
 		},	
@@ -178,6 +186,10 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'birthRate',
 					modifier: 0.1
+				},
+				{
+					name: 'welfare',
+					absoluteIncrease: 5
 				}
 			]
 		},	
@@ -189,6 +201,21 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'birthRate',
 					modifier: 0.2
+				},
+				{
+					name: 'welfare',
+					absoluteIncrease: 5
+				}
+			]
+		},
+		{
+			name: 'Open borders', 
+			cost: 15000, 
+			description: 'Immigrants will arrive in your country for free; however, as your welfare spending increases, these immigrants will increasingly be of the impoverished and indolent variety.',
+			effects: [
+				{
+					name: 'immigrationRate',
+					absoluteIncrease: 1
 				}
 			]
 		},	
@@ -204,6 +231,10 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'perCapitaIncome',
 					modifier: -0.1
+				},
+				{
+					name: 'welfare',
+					absoluteIncrease: 10
 				}
 			],
 			restricted: true // For event: "The peasants are revolting!"

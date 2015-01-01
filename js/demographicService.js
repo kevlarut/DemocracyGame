@@ -3,8 +3,7 @@ var democracyGame = angular.module('democracyGame');
 democracyGame.service('demographicService', function(constantsService, playerService, policyService) {
 		
 	this.approvalRating = function() {
-		var rate = constantsService.baseApprovalRating;
-		return rate * policyService.getPolicyModifier('approvalRating');
+		return policyService.getAttributeValueAfterModificationByPolicies('approvalRating', constantsService.baseApprovalRating);
 	};
 	
 	this.murderRate = function() {
@@ -15,7 +14,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 				rate += race.population;
 			}
 		}
-		rate /= 5000 * policyService.getPolicyModifier('crimeRate');
+		rate = policyService.getAttributeValueAfterModificationByPolicies('crimeRate', rate / 5000);
 		return rate;
 	};
 	
@@ -33,8 +32,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 	};
 	
 	this.perCapitaIncomePerYear = function() {		
-		var rate = this.averageIQ();
-		return rate * policyService.getPolicyModifier('perCapitaIncome');
+		return policyService.getAttributeValueAfterModificationByPolicies('perCapitaIncome', this.averageIQ());
 	};
 	this.perCapitaIncomePerSecond = function() {
 		return this.perCapitaIncomePerYear() / constantsService.secondsPerYear;
@@ -51,8 +49,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	this.malthusianParameter = function() {
-		var rate = constantsService.baseMalthusianParameter;
-		return rate * policyService.getPolicyModifier('birthRate');
+		return policyService.getAttributeValueAfterModificationByPolicies('birthRate', constantsService.baseMalthusianParameter);
 	};
 	
 	this.population = function() {
@@ -85,7 +82,10 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 	}
 	
 	this.carryingCapacity = function() {		
-		var rate = constantsService.baseCarryingCapacity;
-		return rate * policyService.getPolicyModifier('carryingCapacity');
+		return policyService.getAttributeValueAfterModificationByPolicies('carryingCapacity', constantsService.baseCarryingCapacity);
+	};
+	
+	this.welfareSaturation = function() {
+		return policyService.getAttributeValueAfterModificationByPolicies('welfare', 0); // 'welfare' is on a scale of 0 - 100
 	};
 });
