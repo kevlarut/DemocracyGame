@@ -10,7 +10,7 @@ democracyGame.service('eventService', function(demographicService, gameDataServi
 	this.canBuyEveryPolicyInEvent = function(eventIndex) {
 		var event = gameDataService.events[i];
 		for (var i = 0; i < event.choices.length; i++) {
-			var policy = policyService.getPolicyByPolicyName(event.choices[i].nameOfPolicyToEnactIfChosen);
+			var policy = policyService.getPolicyByName(event.choices[i].nameOfPolicyToEnactIfChosen);
 			if (!policyService.canBuyPolicy(policy)) {
 				return false;
 			}

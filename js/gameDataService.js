@@ -127,13 +127,24 @@ democracyGame.service('gameDataService', function() {
 			]
 		},
 		{
-			name: 'Charter an agricultural college', 
-			cost: 100000, 
-			description: 'Double per capita income',
+			name: 'Build a power plant', 
+			cost: 50000, 
+			description: 'Double per capita income, since your workers can now pick avocado by electric candlelight',
 			effects: [
 				{
 					name: 'perCapitaIncome',
-					modifier: 1
+					modifier: 2
+				}
+			]
+		},
+		{
+			name: 'Charter an agricultural college', 
+			cost: 100000, 
+			description: 'Triple per capita income, since your workers are now more adept at picking avocados',
+			effects: [
+				{
+					name: 'perCapitaIncome',
+					modifier: 2
 				}
 			]
 		},

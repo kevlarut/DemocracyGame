@@ -87,10 +87,10 @@
 							</button>
 						</div>
 						
-						<div ng-show="policyService.enactedPolicies().length > 0">
+						<div ng-show="playerService.enactedPolicyNames.length > 0">
 							<h3>Enacted policies:</h3>
-							<div ng-repeat="policy in policyService.enactedPolicies()">
-								{{policy.name}}
+							<div ng-repeat="policyName in playerService.enactedPolicyNames">
+								{{policyName}}
 							</div>
 						</div>
 					

@@ -1,6 +1,6 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.service('policyService', function($filter, gameDataService, playerService) {
+democracyGame.service('policyService', function(gameDataService, playerService) {
 		
 	this.allPolicies = function() {
 		return gameDataService.policies;
@@ -22,16 +22,24 @@ democracyGame.service('policyService', function($filter, gameDataService, player
 		return !policy.restricted && !this.isPolicyAlreadyEnacted(policy);
 	};
 	
-	this.enactedPolicies = function() {
-		return playerService.enactedPolicies;
-	};	
+	this.getPolicyByName = function(policyName) {
+		for (var i = 0; i < gameDataService.policies.length; i++) {
+			var policy = gameDataService.policies[i];
+			if (policy.name == policyName) {
+				return policy;
+			}
+		}
+		
+		alert('Error: Could not find any policy with name: ' + policyName);			
+		return null;
+	};
 	
 	this.getPolicyModifier = function(modifierName) {
 		
 		var rate = 1;
 		
-		for (var i = 0; i < this.enactedPolicies().length; i++) {
-			var policy = this.enactedPolicies()[i];
+		for (var i = 0; i < playerService.enactedPolicyNames.length; i++) {
+			var policy = this.getPolicyByName(playerService.enactedPolicyNames[i]);
 			for (var j = 0; j < policy.effects.length; j++) {
 				var effect = policy.effects[j];
 				if (effect.name === modifierName) {
@@ -44,8 +52,8 @@ democracyGame.service('policyService', function($filter, gameDataService, player
 	};
 	
 	this.isPolicyAlreadyEnacted = function(policy) {		
-		for (var i = 0; i < this.enactedPolicies().length; i++) {
-			if (this.enactedPolicies()[i].name == policy.name) {
+		for (var i = 0; i < playerService.enactedPolicyNames.length; i++) {
+			if (playerService.enactedPolicyNames[i] == policy.name) {
 				return true;
 				break;
 			}
@@ -57,29 +65,13 @@ democracyGame.service('policyService', function($filter, gameDataService, player
 		playerService.money -= policy.cost;
 		for (var i = 0; i < gameDataService.policies.length; i++) {
 			if (gameDataService.policies[i].name === policy.name) {
-				playerService.enactedPolicies.push(policy);
+				playerService.enactedPolicyNames.push(policy.name);
 			}
 		}
-	};
-	
-	this.getPolicyByPolicyName = function(policyName) {
-		var matchingPolicy = null;
-		for (var i = 0; i < gameDataService.policies.length; i++) {
-			var policy = gameDataService.policies[i];
-			if (policy.name == policyName) {
-				matchingPolicy = policy;
-				break;
-			}
-		}
-		if (matchingPolicy === null) {
-			alert('Error: Could not find any policy with name: ' + policyName);			
-			return null;
-		}
-		return matchingPolicy;		
 	};
 	
 	this.buyPolicyByName = function(policyName) {
-		var policy = this.getPolicyByPolicyName(policyName);
+		var policy = this.getPolicyByName(policyName);
 		if (policy !== null) {
 			this.buyPolicy(matchingPolicy);
 		}
