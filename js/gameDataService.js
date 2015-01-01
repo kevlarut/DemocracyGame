@@ -35,10 +35,85 @@ democracyGame.service('gameDataService', function() {
 					modifier: 0.05
 				}
 			]
-		},		
+		},
 		{
-			name: 'Raise taxes', 
+			name: 'Special training program for women', 
+			cost: 2000, 
+			description: '-5% birth rate, +5% per capita income',
+			effects: [
+				{
+					name: 'birthRate',
+					modifier: -0.05
+				},
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.05
+				}
+			]
+		},
+		{
+			name: 'Subsidized day care', 
+			cost: 3000, 
+			description: '-5% birth rate, +5% per capita income',
+			effects: [
+				{
+					name: 'birthRate',
+					modifier: -0.05
+				},
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.05
+				}
+			]
+		},
+		{
+			name: 'Raise income taxes', 
 			cost: 7500, 
+			description: '+5% tax rate, -5% approval rating',
+			effects: [
+				{
+					name: 'taxRate',
+					modifier: 0.05
+				},
+				{
+					name: 'approvalRating',
+					modifier: -0.05
+				}
+			]
+		},
+		{
+			name: 'Levy tax on avocado consumption', 
+			cost: 10000, 
+			description: '+5% tax rate, -5% approval rating',
+			effects: [
+				{
+					name: 'taxRate',
+					modifier: 0.05
+				},
+				{
+					name: 'approvalRating',
+					modifier: -0.05
+				}
+			]
+		},
+		{
+			name: 'Create new junk food tax', 
+			cost: 15000, 
+			description: '+5% tax rate, -5% approval rating',
+			effects: [
+				{
+					name: 'taxRate',
+					modifier: 0.05
+				},
+				{
+					name: 'approvalRating',
+					modifier: -0.05
+				}
+			]
+		},
+		{
+			name: 'Tax people for not eating avocados', 
+			cost: 20000, 
 			description: '+5% tax rate, -5% approval rating',
 			effects: [
 				{
@@ -83,7 +158,29 @@ democracyGame.service('gameDataService', function() {
 					modifier: -0.5
 				}
 			]
-		},		
+		},	
+		{
+			name: 'Build health clinic', 
+			cost: 50000, 
+			description: '+10% growth rate, from more successful births and fewer deaths',
+			effects: [
+				{
+					name: 'birthRate',
+					modifier: 0.1
+				}
+			]
+		},	
+		{
+			name: 'Build hospital', 
+			cost: 500000, 
+			description: '+10% growth rate, from more successful births and fewer deaths',
+			effects: [
+				{
+					name: 'birthRate',
+					modifier: 0.2
+				}
+			]
+		},	
 		{
 			name: 'Panem et circenses',
 			cost: 0,

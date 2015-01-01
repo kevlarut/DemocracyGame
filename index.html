@@ -57,8 +57,8 @@
 						<h2>Stats &amp; Immigration</h2>
 						
 						<p>Tax rate: {{taxRate() | number : 2}}%<br />
-						Annual per capita income: {{perCapitaIncomePerYear() | currency}}<br />
-						Population growth rate: {{birthRate() | number : 2}} per thousand per year<br />
+						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
+						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
 						Approval rating: {{demographicService.approvalRating() | number : 2}}%</p>
 							
 						<p ng-repeat="race in playerService.races">
@@ -80,16 +80,16 @@
 						
 						<h2>Policies</h2>				
 					
-						<div ng-repeat="policy in gameDataService.policies">
+						<div ng-repeat="policy in policyService.allPolicies() | orderBy : 'cost'">
 							<button ng-click="policyService.buyPolicy(policy)" ng-disabled="!policyService.canBuyPolicy(policy)" class="policy" ng-show="!policy.restricted">
 							{{policy.name}} {{policy.cost | currency}}<br />
 							{{policy.description}}
 							</button>
 						</div>
 						
-						<div ng-show="playerService.enactedPolicies.length > 0">
+						<div ng-show="policyService.enactedPolicies().length > 0">
 							<h3>Enacted policies:</h3>
-							<div ng-repeat="policy in playerService.enactedPolicies">
+							<div ng-repeat="policy in policyService.enactedPolicies()">
 								{{policy.name}}
 							</div>
 						</div>

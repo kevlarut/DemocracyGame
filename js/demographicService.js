@@ -40,7 +40,9 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		return this.perCapitaIncomePerYear() / constantsService.secondsPerYear;
 	};
 	
-	this.birthRate = function() {			
+	this.populationGrowthRate = function() {	
+		var K = this.carryingCapacity();
+		var N0 = this.population();		
 		var Nt = this.populationGrowth(N0, K);		
 		return (Nt / N0 * 1000) - 1000;
 	};
