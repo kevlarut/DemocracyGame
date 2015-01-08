@@ -12,6 +12,7 @@
 	<script src="js/demographicService.js"></script>
 	<script src="js/eventService.js"></script>
 	<script src="js/gameDataService.js"></script>
+	<script src="js/infrastructureService.js"></script>
 	<script src="js/immigrationService.js"></script>
 	<script src="js/localStorageService.js"></script>
 	<script src="js/playerService.js"></script>
@@ -55,19 +56,20 @@
 				<div class="row">
 					<div class="col-md-4">					
 				
-						<h2>Stats &amp; Immigration</h2>
+						<h2>Store</h2>
 						
-						<p>Tax rate: {{taxRate() | number : 2}}%<br />
-						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
-						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
-						Approval rating: {{demographicService.approvalRating() | number : 2}}%<br />
-						Welfare saturation, on a scale of 0-100: {{demographicService.welfareSaturation()}}<br />
-						Immigrants per second: {{immigrationService.immigrantsPerSecond()}}</p>
-							
-						<p ng-repeat="race in playerService.races">
+						<h3>Infrastructure</h3>
+						<div ng-repeat="project in infrastructureService.projects">					
+							<b>{{project.name}}</b>
+							<p>Current: {{infrastructureService.getFlavorfulLevelTextForCurrentLevel(project.id)}}<br />
+							<button ng-click="infrastructureService.buyUpgrade(project.id)" ng-disabled="!infrastructureService.canBuyUpgrade(project.id)">Upgrade to {{infrastructureService.getFlavorfulLevelTextForNextLevel(project.id)}} for {{infrastructureService.getUpgradeCost(project.id) | currency}}</button></p>
+						</div>
+						
+						<h3>Immigration</h3>
+						<div ng-repeat="race in playerService.races">
 							<img ng-src="{{'img/' + race.name + '.jpg'}}" class="raceicon" />
 							<button ng-disabled="playerService.money < race.immigrationCost" ng-click="immigrationService.buyImmigrant(race)">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
-						</p>
+						</div>
 					
 					</div>
 					<div class="col-md-4">	
@@ -121,6 +123,13 @@
 						</div>
 						<div>Carrying capacity: {{demographicService.carryingCapacity() | number}} souls</div>
 						<div>Murder rate: {{ demographicService.murderRate() | number : 0}} per 100,000 inhabitants</div>
+												
+						<p>Tax rate: {{taxRate() | number : 2}}%<br />
+						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
+						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
+						Approval rating: {{demographicService.approvalRating() | number : 2}}%<br />
+						Welfare saturation, on a scale of 0-100: {{demographicService.welfareSaturation()}}<br />
+						Immigrants per second: {{immigrationService.immigrantsPerSecond()}}</p>
 					
 					</div>
 				</div>

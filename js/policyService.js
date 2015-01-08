@@ -1,6 +1,6 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.service('policyService', function(gameDataService, playerService) {
+democracyGame.service('policyService', function(gameDataService, infrastructureService, playerService) {
 		
 	this.allPolicies = function() {
 		return gameDataService.policies;
@@ -36,8 +36,12 @@ democracyGame.service('policyService', function(gameDataService, playerService) 
 	
 	this.getAttributeValueAfterModificationByPolicies = function(attributeName, baseValue) {	
 		var value = baseValue;
+		
 		value += this.getPolicyAbsoluteIncrease(attributeName);
+		value += infrastructureService.getAttributeAbsoluteIncrease(attributeName);
 		value *= this.getPolicyModifier(attributeName);
+		value *= infrastructureService.getAttributeModifier(attributeName);
+		
 		return value;
 	};
 	
@@ -90,12 +94,17 @@ democracyGame.service('policyService', function(gameDataService, playerService) 
 	};
 	
 	this.buyPolicy = function(policy) {
-		playerService.money -= policy.cost;
-		for (var i = 0; i < gameDataService.policies.length; i++) {
-			if (gameDataService.policies[i].name === policy.name) {
-				playerService.enactedPolicyNames.push(policy.name);
+	
+		if (playerService.money >= policy.cost) {
+			playerService.money -= policy.cost;
+			for (var i = 0; i < gameDataService.policies.length; i++) {
+				if (gameDataService.policies[i].name === policy.name) {
+					playerService.enactedPolicyNames.push(policy.name);
+				}
 			}
+			return true;
 		}
+		return false;
 	};
 	
 	this.buyPolicyByName = function(policyName) {

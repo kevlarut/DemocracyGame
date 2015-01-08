@@ -20,6 +20,91 @@ democracyGame.service('gameDataService', function() {
 		'Work late with an intern'
 	];
 	
+	// this.infrastructureProjects = [
+		// {
+			// name: 'Police station', 
+			// cost:1000000, 
+			// description: 'Reduce crime rate in half',
+			// effects: [
+				// {
+					// name: 'crimeRate',
+					// modifier: -0.5
+				// },
+				// {
+					// name: 'welfare',
+					// absoluteIncrease: -5
+				// }
+			// ]
+		// },	
+		// {
+			// name: 'Health clinic', 
+			// cost: 50000, 
+			// description: '+10% growth rate, from more successful births and fewer deaths',
+			// effects: [
+				// {
+					// name: 'birthRate',
+					// modifier: 0.1
+				// },
+				// {
+					// name: 'welfare',
+					// absoluteIncrease: 5
+				// }
+			// ]
+		// },	
+		// {
+			// name: 'Hospital', 
+			// cost: 500000, 
+			// description: '+10% growth rate, from more successful births and fewer deaths',
+			// effects: [
+				// {
+					// name: 'birthRate',
+					// modifier: 0.2
+				// },
+				// {
+					// name: 'welfare',
+					// absoluteIncrease: 5
+				// }
+			// ]
+		// },
+		// {
+			// name: 'Power plant', 
+			// cost: 50000, 
+			// description: 'Double per capita income, since your workers can now pick avocado by electric candlelight',
+			// effects: [
+				// {
+					// name: 'perCapitaIncome',
+					// modifier: 2
+				// },
+				// {
+					// name: 'welfare',
+					// absoluteIncrease: 5
+				// }
+			// ]
+		// },
+		// {
+			// name: 'Agricultural college', 
+			// cost: 100000, 
+			// description: 'Triple per capita income, since your workers are now more adept at picking avocados',
+			// effects: [
+				// {
+					// name: 'perCapitaIncome',
+					// modifier: 2
+				// }
+			// ]
+		// },
+		// {
+			// name: 'High-density housing', 
+			// cost:1000000, 
+			// description: 'Double carrying capacity',
+			// effects: [
+				// {
+					// name: 'carryingCapacity',
+					// modifier: 1.0
+				// }
+			// ]
+		// }	
+	// ];
+	
 	this.policies = [
 		{
 			name: 'Free contraceptives', 
@@ -123,88 +208,6 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'approvalRating',
 					modifier: -0.05
-				}
-			]
-		},
-		{
-			name: 'Build a power plant', 
-			cost: 50000, 
-			description: 'Double per capita income, since your workers can now pick avocado by electric candlelight',
-			effects: [
-				{
-					name: 'perCapitaIncome',
-					modifier: 2
-				},
-				{
-					name: 'welfare',
-					absoluteIncrease: 5
-				}
-			]
-		},
-		{
-			name: 'Charter an agricultural college', 
-			cost: 100000, 
-			description: 'Triple per capita income, since your workers are now more adept at picking avocados',
-			effects: [
-				{
-					name: 'perCapitaIncome',
-					modifier: 2
-				}
-			]
-		},
-		{
-			name: 'Annex land', 
-			cost:1000000, 
-			description: 'Double carrying capacity',
-			effects: [
-				{
-					name: 'carryingCapacity',
-					modifier: 1.0
-				}
-			]
-		},
-		{
-			name: 'Build a police station', 
-			cost:1000000, 
-			description: 'Reduce crime rate in half',
-			effects: [
-				{
-					name: 'crimeRate',
-					modifier: -0.5
-				},
-				{
-					name: 'welfare',
-					absoluteIncrease: -5
-				}
-			]
-		},	
-		{
-			name: 'Build health clinic', 
-			cost: 50000, 
-			description: '+10% growth rate, from more successful births and fewer deaths',
-			effects: [
-				{
-					name: 'birthRate',
-					modifier: 0.1
-				},
-				{
-					name: 'welfare',
-					absoluteIncrease: 5
-				}
-			]
-		},	
-		{
-			name: 'Build hospital', 
-			cost: 500000, 
-			description: '+10% growth rate, from more successful births and fewer deaths',
-			effects: [
-				{
-					name: 'birthRate',
-					modifier: 0.2
-				},
-				{
-					name: 'welfare',
-					absoluteIncrease: 5
 				}
 			]
 		},

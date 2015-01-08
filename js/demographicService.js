@@ -81,7 +81,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		}
 	}
 	
-	this.carryingCapacity = function() {		
+	this.carryingCapacity = function() {
 		return policyService.getAttributeValueAfterModificationByPolicies('carryingCapacity', constantsService.baseCarryingCapacity);
 	};
 	
