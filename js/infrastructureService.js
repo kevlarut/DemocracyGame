@@ -43,6 +43,11 @@ democracyGame.service('infrastructureService', function(playerService) {
 					modifier: 1.0
 				}
 			],
+			flavorfulLevelNames: [
+				'Lynchings',
+				'Neighborhood Watch',
+				'Police Department'
+			]
 		},
 		{
 			id: 'education',
@@ -51,9 +56,16 @@ democracyGame.service('infrastructureService', function(playerService) {
 			effects: [
 				{
 					name: 'perCapitaIncome',
-					modifier: 1.0
+					modifier: 2.0
 				}
 			],
+			flavorfulLevelNames: [
+				'No Education',
+				'Primary Schools',
+				'Secondary Schools',
+				'Agricultural College',
+				'University'
+			]
 		},
 		// {
 			// id: 'defense',
@@ -194,7 +206,7 @@ democracyGame.service('infrastructureService', function(playerService) {
 				for (var j = 0; j < project.effects.length; j++) {
 					var effect = project.effects[j];
 					if (effect.name === attributeName && typeof effect.modifier !== 'undefined') {
-						modifier *= 1 + effect.modifier * infrastructure.level;
+						modifier *= Math.pow(1 + effect.modifier, infrastructure.level);
 					}
 				}
 			}

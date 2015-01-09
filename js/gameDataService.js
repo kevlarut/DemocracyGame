@@ -20,136 +20,85 @@ democracyGame.service('gameDataService', function() {
 		'Work late with an intern'
 	];
 	
-	// this.infrastructureProjects = [
-		// {
-			// name: 'Police station', 
-			// cost:1000000, 
-			// description: 'Reduce crime rate in half',
-			// effects: [
-				// {
-					// name: 'crimeRate',
-					// modifier: -0.5
-				// },
-				// {
-					// name: 'welfare',
-					// absoluteIncrease: -5
-				// }
-			// ]
-		// },	
-		// {
-			// name: 'Health clinic', 
-			// cost: 50000, 
-			// description: '+10% growth rate, from more successful births and fewer deaths',
-			// effects: [
-				// {
-					// name: 'birthRate',
-					// modifier: 0.1
-				// },
-				// {
-					// name: 'welfare',
-					// absoluteIncrease: 5
-				// }
-			// ]
-		// },	
-		// {
-			// name: 'Hospital', 
-			// cost: 500000, 
-			// description: '+10% growth rate, from more successful births and fewer deaths',
-			// effects: [
-				// {
-					// name: 'birthRate',
-					// modifier: 0.2
-				// },
-				// {
-					// name: 'welfare',
-					// absoluteIncrease: 5
-				// }
-			// ]
-		// },
-		// {
-			// name: 'Power plant', 
-			// cost: 50000, 
-			// description: 'Double per capita income, since your workers can now pick avocado by electric candlelight',
-			// effects: [
-				// {
-					// name: 'perCapitaIncome',
-					// modifier: 2
-				// },
-				// {
-					// name: 'welfare',
-					// absoluteIncrease: 5
-				// }
-			// ]
-		// },
-		// {
-			// name: 'Agricultural college', 
-			// cost: 100000, 
-			// description: 'Triple per capita income, since your workers are now more adept at picking avocados',
-			// effects: [
-				// {
-					// name: 'perCapitaIncome',
-					// modifier: 2
-				// }
-			// ]
-		// },
-		// {
-			// name: 'High-density housing', 
-			// cost:1000000, 
-			// description: 'Double carrying capacity',
-			// effects: [
-				// {
-					// name: 'carryingCapacity',
-					// modifier: 1.0
-				// }
-			// ]
-		// }	
-	// ];
-	
 	this.policies = [
-		{
-			name: 'Free contraceptives', 
+		{ 	// Feminism Level 1
+			name: 'Women\'s suffrage', 
 			cost: 1000, 
-			description: '-5% birth rate, +5% per capita income',
+			description: 'Let women vote.  Increased per capita income; lower birthrate.',
 			effects: [
 				{
 					name: 'birthRate',
-					modifier: -0.05
+					absoluteIncrease: -0.01
 				},
 				{
 					name: 'perCapitaIncome',
-					modifier: 0.05
+					modifier: 0.1
 				}
 			]
 		},
-		{
-			name: 'Special training program for women', 
+		{ 	// Feminism Level 2
+			name: 'Free contraceptives', 
 			cost: 2000, 
-			description: '-5% birth rate, +5% per capita income',
+			description: 'Increased income, decreased birth rate.',
 			effects: [
 				{
 					name: 'birthRate',
-					modifier: -0.05
+					absoluteIncrease: -0.01
 				},
 				{
 					name: 'perCapitaIncome',
-					modifier: 0.05
+					modifier: 0.1
 				}
-			]
+			],
+			prerequisite: 'Women\'s suffrage'
 		},
-		{
-			name: 'Subsidized day care', 
+		{	// Feminism Level 3
+			name: 'Special training program for women', 
 			cost: 3000, 
-			description: '-5% birth rate, +5% per capita income',
+			description: 'Increased income, decreased birth rate.',
 			effects: [
 				{
 					name: 'birthRate',
-					modifier: -0.05
+					absoluteIncrease: -0.01
 				},
 				{
 					name: 'perCapitaIncome',
-					modifier: 0.05
+					modifier: 0.1
 				}
-			]
+			],
+			prerequisite: 'Free contraceptives'
+		},
+		{	// Feminism Level 4
+			name: 'Hiring preferences for women', 
+			cost: 4000, 
+			description: 'Affirmative action.  Increased income, decreased birth rate.',
+			effects: [
+				{
+					name: 'birthRate',
+					absoluteIncrease: -0.01
+				},
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.1
+				}				
+			],
+			prerequisite: 'Special training program for women'
+		},
+		{	// Feminism Level 5
+			name: 'Subsidized day care', 
+			cost: 5000, 
+			description: 'Increased income, decreased birth rate.',
+			effects: [
+				{
+					name: 'birthRate',
+					absoluteIncrease: -0.01
+				},
+				{
+					name: 'perCapitaIncome',
+					modifier: 0.1
+				}
+			],
+			prerequisite: 'Hiring preferences for women'
 		},
 		{
 			name: 'Raise income taxes', 

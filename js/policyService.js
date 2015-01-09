@@ -1,7 +1,7 @@
 var democracyGame = angular.module('democracyGame');
 
 democracyGame.service('policyService', function(gameDataService, infrastructureService, playerService) {
-		
+
 	this.allPolicies = function() {
 		return gameDataService.policies;
 	};
@@ -19,7 +19,7 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 	};
 	
 	this.canShowPolicyInBuyList = function(policy) {
-		return !policy.restricted && !this.isPolicyAlreadyEnacted(policy);
+		return !policy.restricted && !this.isPolicyAlreadyEnacted(policy) && this.havePolicyPrerequisitesBeenMet(policy);
 	};
 	
 	this.getPolicyByName = function(policyName) {
@@ -81,6 +81,15 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 		}
 		
 		return rate;
+	};
+	
+	this.havePolicyPrerequisitesBeenMet = function(policy) {
+		if (typeof policy.prerequisite === 'undefined') {
+			return true;
+		}
+		else {
+			return this.isPolicyAlreadyEnacted(policy.prerequisite);
+		}
 	};
 	
 	this.isPolicyAlreadyEnacted = function(policy) {		
