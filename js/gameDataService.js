@@ -243,8 +243,8 @@ democracyGame.service('gameDataService', function() {
 	];
 	
 	this.races = [
-		{name: 'Braniac', population: 10, iq: 115, color: "#5cb85c", immigrationCost: 10000}, 
-		{name: 'Middling', population: 80, iq: 100, color: "#f0ad4e", immigrationCost: 5000}, 
-		{name: 'Dumbum', population: 10, iq: 85, color: "#d9534f", immigrationCost: 1000}
+		{name: 'Braniac', population: 10, standardDeviationsFromMeanIQ: 1, color: "#5cb85c", immigrationCost: 10000}, 
+		{name: 'Middling', population: 80, standardDeviationsFromMeanIQ: 0, color: "#f0ad4e", immigrationCost: 5000}, 
+		{name: 'Dumbum', population: 10, standardDeviationsFromMeanIQ: -1, color: "#d9534f", immigrationCost: 1000}
 	];
 });

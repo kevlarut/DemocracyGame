@@ -109,6 +109,7 @@
 						</div>
 					
 						<div>Population: {{demographicService.population() | number : 0}}</div>
+						<div>Gross Domestic Product: {{demographicService.gdp() | currency}}</div>
 						<div>Average IQ: {{demographicService.averageIQ() | number : 0}}</div>
 						<div ng-repeat="race in playerService.races">
 							{{race.name}}s: {{race.population | number : 0}}
@@ -117,7 +118,7 @@
 						<div>Violent crime rate: {{ demographicService.crimeRate() | number : 2}} per 1,000 inhabitants</div>
 												
 						<p>Tax rate: {{taxRate() | number : 2}}%<br />
-						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
+						<abbr title="Gross Domestic Product">GDP</abbr> per capita (<abbr title="Purchasing Power Parity">PPP</abbr>): {{demographicService.perCapitaIncomePerYear() | currency}}<br />
 						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
 						Approval rating: {{demographicService.approvalRating() | number : 2}}%<br />
 						Eugenics rate: {{demographicService.eugenicsRate()}}</p>

@@ -10,12 +10,16 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		var rate = 0;
 		for (var i = 0; i < playerService.races.length; i++) {
 			var race = playerService.races[i];
-			if (race.iq < 100) {
+			if (race.standardDeviationsFromMeanIQ < 0) {
 				rate += race.population;
 			}
 		}
 		rate = policyService.getAttributeValueAfterModificationByPolicies('crimeRate', rate / 10);
 		return rate;
+	}
+	
+	this.gdp = function() {
+		return this.perCapitaIncomePerYear() * this.population();
 	}
 	
 	this.populationPercentage = function(population) {
@@ -27,20 +31,26 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 	}
 	
 	this.averageIQ = function() {		
-		var totalIQ = 0;
+		var iq = 100 + (this.averageStandardDeviationsFromMeanIQ() * 15);
+		return iq;
+	}
+	
+	this.averageStandardDeviationsFromMeanIQ = function() {
+		var totalstandardDeviationsFromMeanIQ = 0;
 		for (var i = 0; i < playerService.races.length; i++) {
 			var race = playerService.races[i];
-			totalIQ += race.iq * race.population;
+			totalstandardDeviationsFromMeanIQ += race.standardDeviationsFromMeanIQ * race.population;
 		}
-		return totalIQ / this.population();
-	};
+		return totalstandardDeviationsFromMeanIQ / this.population();
+	}
 	
-	this.perCapitaIncomePerYear = function() {		
-		return policyService.getAttributeValueAfterModificationByPolicies('perCapitaIncome', this.averageIQ());
+	this.perCapitaIncomePerYear = function() {
+		var basicIncome = 100 * (this.averageStandardDeviationsFromMeanIQ() + 2);
+		return policyService.getAttributeValueAfterModificationByPolicies('perCapitaIncome', basicIncome);
 	};
 	this.perCapitaIncomePerSecond = function() {
 		return this.perCapitaIncomePerYear() / constantsService.secondsPerYear;
-	};
+	}
 	
 	this.populationGrowthRate = function() {			
 		var K = this.carryingCapacity();
@@ -49,7 +59,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		var Nt = this.populationGrowth(N0, K, t);
 		
 		return (Nt / N0 * 1000) - 1000;
-	};
+	}
 		
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	this.malthusianParameter = function() {
@@ -91,10 +101,10 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 			var race = playerService.races[i];
 			
 			var weightedProportion = this.populationProportion(race.population);
-			if (race.iq > 100) {
+			if (race.standardDeviationsFromMeanIQ > 0) {
 				weightedProportion *= this.eugenicsRate();
 			}
-			if (race.iq < 100) {
+			if (race.standardDeviationsFromMeanIQ < 0) {
 				weightedProportion *= 2 - this.eugenicsRate(); 
 			}
 			weightedProportions.push(weightedProportion);
