@@ -13,7 +13,6 @@
 	<script src="js/eventService.js"></script>
 	<script src="js/gameDataService.js"></script>
 	<script src="js/infrastructureService.js"></script>
-	<script src="js/immigrationService.js"></script>
 	<script src="js/localStorageService.js"></script>
 	<script src="js/playerService.js"></script>
 	<script src="js/policyService.js"></script>
@@ -58,17 +57,10 @@
 				
 						<h2>Store</h2>
 						
-						<h3>Infrastructure</h3>
 						<div ng-repeat="project in infrastructureService.projects">					
 							<b>{{project.name}}</b>
 							<p>Current: {{infrastructureService.getFlavorfulLevelTextForCurrentLevel(project.id)}}<br />
 							<button ng-click="infrastructureService.buyUpgrade(project.id)" ng-disabled="!infrastructureService.canBuyUpgrade(project.id)">Upgrade to {{infrastructureService.getFlavorfulLevelTextForNextLevel(project.id)}} for {{infrastructureService.getUpgradeCost(project.id) | currency}}</button></p>
-						</div>
-						
-						<h3>Immigration</h3>
-						<div ng-repeat="race in playerService.races">
-							<img ng-src="{{'img/' + race.name + '.jpg'}}" class="raceicon" />
-							<button ng-disabled="playerService.money < race.immigrationCost" ng-click="immigrationService.buyImmigrant(race)">Buy a {{race.name}} immigrant {{race.immigrationCost | currency}}</button>
 						</div>
 					
 					</div>

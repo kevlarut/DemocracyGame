@@ -1,12 +1,11 @@
 var democracyGame = angular.module('democracyGame');
 
-democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'demographicService', 'gameDataService', 'infrastructureService', 'immigrationService', 'playerService', 'localStorageService', 'policyService', 'eventService', function($scope, $timeout, constantsService, demographicService, gameDataService, infrastructureService, immigrationService, playerService, localStorageService, policyService, eventService) {
+democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsService', 'demographicService', 'gameDataService', 'infrastructureService', 'playerService', 'localStorageService', 'policyService', 'eventService', function($scope, $timeout, constantsService, demographicService, gameDataService, infrastructureService, playerService, localStorageService, policyService, eventService) {
 
 	$scope.demographicService = demographicService;
 	$scope.eventService = eventService;
 	$scope.gameDataService = gameDataService;
 	$scope.infrastructureService = infrastructureService;
-	$scope.immigrationService = immigrationService;
 	$scope.playerService = playerService;
 	$scope.policyService = policyService;
 
