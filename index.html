@@ -122,14 +122,13 @@
 							{{race.name}}s: {{race.population | number : 0}}
 						</div>
 						<div>Carrying capacity: {{demographicService.carryingCapacity() | number}} souls</div>
-						<div>Murder rate: {{ demographicService.murderRate() | number : 0}} per 100,000 inhabitants</div>
+						<div>Violent crime rate: {{ demographicService.crimeRate() | number : 2}} per 1,000 inhabitants</div>
 												
 						<p>Tax rate: {{taxRate() | number : 2}}%<br />
 						Annual per capita income: {{demographicService.perCapitaIncomePerYear() | currency}}<br />
 						Population growth rate: {{demographicService.populationGrowthRate() | number : 2}} per thousand per year<br />
 						Approval rating: {{demographicService.approvalRating() | number : 2}}%<br />
-						Welfare saturation, on a scale of 0-100: {{demographicService.welfareSaturation()}}<br />
-						Immigrants per second: {{immigrationService.immigrantsPerSecond()}}</p>
+						Eugenics rate: {{demographicService.eugenicsRate()}}</p>
 					
 					</div>
 				</div>

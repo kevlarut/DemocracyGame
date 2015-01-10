@@ -80,7 +80,11 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'perCapitaIncome',
 					modifier: 0.1
-				}				
+				},
+				{
+					name: 'eugenicsRate',
+					absoluteIncrease: -0.05
+				}			
 			],
 			prerequisite: 'Special training program for women'
 		},
@@ -96,9 +100,24 @@ democracyGame.service('gameDataService', function() {
 				{
 					name: 'perCapitaIncome',
 					modifier: 0.1
-				}
+				},
+				{
+					name: 'eugenicsRate',
+					absoluteIncrease: -0.05
+				}	
 			],
 			prerequisite: 'Hiring preferences for women'
+		},
+		{	// Eugenics Level 1
+			name: 'Foreign scholarships', 
+			cost: 10000, 
+			description: 'Attract a higher caliber of immigrant.',
+			effects: [
+				{
+					name: 'eugenicsRate',
+					absoluteIncrease: 0.1
+				}
+			]
 		},
 		{
 			name: 'Raise income taxes', 
@@ -166,8 +185,8 @@ democracyGame.service('gameDataService', function() {
 			description: 'Immigrants will arrive in your country for free; however, as your welfare spending increases, these immigrants will increasingly be of the impoverished and indolent variety.',
 			effects: [
 				{
-					name: 'immigrationRate',
-					absoluteIncrease: 1
+					name: 'birthRate',
+					absoluteIncrease: 0.05
 				}
 			]
 		},	
@@ -185,8 +204,8 @@ democracyGame.service('gameDataService', function() {
 					modifier: -0.1
 				},
 				{
-					name: 'welfare',
-					absoluteIncrease: 10
+					name: 'eugenicsRate',
+					absoluteIncrease: -0.05
 				}
 			],
 			restricted: true // For event: "The peasants are revolting!"

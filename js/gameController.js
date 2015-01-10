@@ -21,7 +21,6 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 	};	
 	
 	$scope.lastUpdated = new Date();
-	$scope.now = new Date();
 	
 	$scope.getNextDemocraticAction = function() {
 		var random = Math.floor(Math.random() * gameDataService.democraticActions.length);
@@ -40,8 +39,6 @@ democracyGame.controller('gameController', ['$scope', '$timeout', 'constantsServ
 		
 		playerService.money += $scope.incomePerSecond() / constantsService.framesPerSecond;
 		demographicService.growPopulationForEachAndEveryRace();
-
-		immigrationService.processImmigration();
 		
 		var newEvent = eventService.spawnNewEventPerhaps($scope.currentEvent);
 		if (newEvent) {

@@ -40,7 +40,7 @@ democracyGame.service('infrastructureService', function(playerService) {
 			effects: [
 				{
 					name: 'crimeRate',
-					modifier: 1.0
+					modifier: -0.25
 				}
 			],
 			flavorfulLevelNames: [

@@ -88,7 +88,8 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 			return true;
 		}
 		else {
-			return this.isPolicyAlreadyEnacted(policy.prerequisite);
+			var prerequisite = this.getPolicyByName(policy.prerequisite);
+			return this.isPolicyAlreadyEnacted(prerequisite);
 		}
 	};
 	

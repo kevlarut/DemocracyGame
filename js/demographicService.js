@@ -4,9 +4,9 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		
 	this.approvalRating = function() {
 		return policyService.getAttributeValueAfterModificationByPolicies('approvalRating', constantsService.baseApprovalRating);
-	};
+	}
 	
-	this.murderRate = function() {
+	this.crimeRate = function() {
 		var rate = 0;
 		for (var i = 0; i < playerService.races.length; i++) {
 			var race = playerService.races[i];
@@ -14,13 +14,17 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 				rate += race.population;
 			}
 		}
-		rate = policyService.getAttributeValueAfterModificationByPolicies('crimeRate', rate / 5000);
+		rate = policyService.getAttributeValueAfterModificationByPolicies('crimeRate', rate / 10);
 		return rate;
-	};
+	}
 	
 	this.populationPercentage = function(population) {
-		return population / this.population() * 100;
-	};
+		return this.populationProportion(population) * 100;
+	}
+	
+	this.populationProportion = function(segmentPopulation) {
+		return segmentPopulation / this.population();		
+	}
 	
 	this.averageIQ = function() {		
 		var totalIQ = 0;
@@ -50,15 +54,17 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	this.malthusianParameter = function() {
 		return policyService.getAttributeValueAfterModificationByPolicies('birthRate', constantsService.baseMalthusianParameter);
-	};
+	}
 	
 	this.population = function() {
 		var population = 0;
 		for (var i = 0; i < playerService.races.length; i++) {
-			population += playerService.races[i].population;
+			if (!isNaN(playerService.races[i].population)) {
+				population += playerService.races[i].population;
+			}
 		}
 		return population;
-	};
+	}
 	
 	this.populationGrowth = function(initialPopulation, carryingCapacity, t) {		
 		var K = carryingCapacity;
@@ -67,25 +73,43 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		var Nt = K / (1 + ((K - N0) / N0) * Math.pow(Math.E, 0 - r * t) );
 		
 		return Nt;
-	};
+	}
+	
+	this.eugenicsRate = function() {	
+		return policyService.getAttributeValueAfterModificationByPolicies('eugenicsRate', 1);
+	}
 	
 	this.growPopulationForEachAndEveryRace = function() {		
-		var totalPopulation = this.population();	
+		var initialTotalPopulation = this.population();	
 		var t = 1 / constantsService.secondsPerYear / constantsService.framesPerSecond;
-		var totalPopulationGrowth = this.populationGrowth(totalPopulation, this.carryingCapacity(), t);
+		var totalPopulationAfterGrowth = this.populationGrowth(initialTotalPopulation, this.carryingCapacity(), t);
+	
+		var weightedProportions = [];
+		var totalWeightedProportions = 0;
+		for (var i = 0; i < playerService.races.length; i++) {
+		
+			var race = playerService.races[i];
+			
+			var weightedProportion = this.populationProportion(race.population);
+			if (race.iq > 100) {
+				weightedProportion *= this.eugenicsRate();
+			}
+			if (race.iq < 100) {
+				weightedProportion *= 2 - this.eugenicsRate(); 
+			}
+			weightedProportions.push(weightedProportion);
+			totalWeightedProportions += weightedProportion;
+		}
 	
 		for (var i = 0; i < playerService.races.length; i++) {
 			var race = playerService.races[i];
-			var racePopulationAfterGrowth = totalPopulationGrowth * race.population / totalPopulation;			
+			var growthForThisRace = (totalPopulationAfterGrowth - initialTotalPopulation) * weightedProportions[i] / totalWeightedProportions;
+			var racePopulationAfterGrowth = race.population + growthForThisRace;			
 			race.population = racePopulationAfterGrowth;
 		}
 	}
 	
 	this.carryingCapacity = function() {
 		return policyService.getAttributeValueAfterModificationByPolicies('carryingCapacity', constantsService.baseCarryingCapacity);
-	};
-	
-	this.welfareSaturation = function() {
-		return policyService.getAttributeValueAfterModificationByPolicies('welfare', 0); // 'welfare' is on a scale of 0 - 100
-	};
+	}
 });
