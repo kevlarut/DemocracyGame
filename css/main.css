@@ -74,16 +74,6 @@ button:hover {
 	background: #ffc;
 }
 
-.policy {
-	margin-bottom: 10px;
-}
-
-.raceicon {
-	border-radius: 10px;
-	width: 50px;
-	height: 50px;
-}
-
 .event {
 	background: #ffc;
 	padding: 20px;
@@ -102,4 +92,15 @@ button:hover {
 }
 .event button {
 	margin-bottom: 10px;
+}
+
+.policy {
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.policy h3 {
+	font-size: 1em;
+	font-weight: bold;
+	margin: 0;
 }

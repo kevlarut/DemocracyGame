@@ -63,7 +63,7 @@ democracyGame.service('demographicService', function(constantsService, playerSer
 		
 	// Maximum, unrestricted population growth rate; that is, the rate at which the population grows when it is very small; e.g., 50 per thousand population per year
 	this.malthusianParameter = function() {
-		return policyService.getAttributeValueAfterModificationByPolicies('birthRate', constantsService.baseMalthusianParameter);
+		return policyService.getAttributeValueAfterModificationByPolicies('growthRate', constantsService.baseMalthusianParameter);
 	}
 	
 	this.population = function() {

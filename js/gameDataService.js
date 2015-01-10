@@ -24,10 +24,10 @@ democracyGame.service('gameDataService', function() {
 		{ 	// Feminism Level 1
 			name: 'Women\'s suffrage', 
 			cost: 1000, 
-			description: 'Let women vote.  Increased per capita income; lower birthrate.',
+			description: 'Let women vote.  Increased per capita income; lower growthRate.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: -0.01
 				},
 				{
@@ -42,7 +42,7 @@ democracyGame.service('gameDataService', function() {
 			description: 'Increased income, decreased birth rate.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: -0.01
 				},
 				{
@@ -58,7 +58,7 @@ democracyGame.service('gameDataService', function() {
 			description: 'Increased income, decreased birth rate.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: -0.01
 				},
 				{
@@ -74,7 +74,7 @@ democracyGame.service('gameDataService', function() {
 			description: 'Affirmative action.  Increased income, decreased birth rate.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: -0.01
 				},
 				{
@@ -94,7 +94,7 @@ democracyGame.service('gameDataService', function() {
 			description: 'Increased income, decreased birth rate.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: -0.01
 				},
 				{
@@ -119,7 +119,7 @@ democracyGame.service('gameDataService', function() {
 				}
 			]
 		},
-		{
+		{	// Taxes Level 1
 			name: 'Raise income taxes', 
 			cost: 7500, 
 			description: '+5% tax rate, -5% approval rating',
@@ -134,7 +134,7 @@ democracyGame.service('gameDataService', function() {
 				}
 			]
 		},
-		{
+		{	// Taxes Level 2
 			name: 'Levy tax on avocado consumption', 
 			cost: 10000, 
 			description: '+5% tax rate, -5% approval rating',
@@ -147,9 +147,10 @@ democracyGame.service('gameDataService', function() {
 					name: 'approvalRating',
 					modifier: -0.05
 				}
-			]
+			],
+			prerequisite: 'Raise income taxes'
 		},
-		{
+		{	// Taxes Level 3
 			name: 'Create new junk food tax', 
 			cost: 15000, 
 			description: '+5% tax rate, -5% approval rating',
@@ -162,9 +163,10 @@ democracyGame.service('gameDataService', function() {
 					name: 'approvalRating',
 					modifier: -0.05
 				}
-			]
+			],
+			prerequisite: 'Levy tax on avocado consumption'
 		},
-		{
+		{	// Taxes Level 4
 			name: 'Tax people for not eating avocados', 
 			cost: 20000, 
 			description: '+5% tax rate, -5% approval rating',
@@ -177,7 +179,8 @@ democracyGame.service('gameDataService', function() {
 					name: 'approvalRating',
 					modifier: -0.05
 				}
-			]
+			],
+			prerequisite: 'Create new junk food tax'
 		},
 		{
 			name: 'Open borders', 
@@ -185,7 +188,7 @@ democracyGame.service('gameDataService', function() {
 			description: 'Immigrants will arrive in your country for free; however, as your welfare spending increases, these immigrants will increasingly be of the impoverished and indolent variety.',
 			effects: [
 				{
-					name: 'birthRate',
+					name: 'growthRate',
 					absoluteIncrease: 0.05
 				}
 			]

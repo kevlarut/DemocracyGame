@@ -4,7 +4,7 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 
 	this.allPolicies = function() {
 		return gameDataService.policies;
-	};
+	}
 	
 	this.canBuyPolicy = function(policy) {
 		if (this.isPolicyAlreadyEnacted(policy)) {
@@ -16,11 +16,28 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 		else {
 			return true;
 		}
-	};
+	}
+	
+	this.getPrettyEffectString = function(effect) {
+		var prettyEffectString = effect.name + ': ';
+		if (typeof effect.absoluteIncrease != 'undefined') {
+			if (effect.absoluteIncrease > 0) {
+				prettyEffectString += '+';
+			}
+			prettyEffectString += effect.absoluteIncrease + ' ';
+		}
+		if (typeof effect.modifier != 'undefined') {
+			if (effect.modifier > 0) {
+				prettyEffectString += '+';
+			}
+			prettyEffectString += (effect.modifier * 100) + '%';
+		}
+		return prettyEffectString;
+	}
 	
 	this.canShowPolicyInBuyList = function(policy) {
 		return !policy.restricted && !this.isPolicyAlreadyEnacted(policy) && this.havePolicyPrerequisitesBeenMet(policy);
-	};
+	}
 	
 	this.getPolicyByName = function(policyName) {
 		for (var i = 0; i < gameDataService.policies.length; i++) {
@@ -32,7 +49,7 @@ democracyGame.service('policyService', function(gameDataService, infrastructureS
 		
 		alert('Error: Could not find any policy with name: ' + policyName);			
 		return null;
-	};
+	}
 	
 	this.getAttributeValueAfterModificationByPolicies = function(attributeName, baseValue) {	
 		var value = baseValue;

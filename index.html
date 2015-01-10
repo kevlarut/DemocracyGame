@@ -79,8 +79,11 @@
 					
 						<div ng-repeat="policy in policyService.allPolicies() | orderBy : 'cost'">
 							<button ng-click="policyService.buyPolicy(policy)" ng-disabled="!policyService.canBuyPolicy(policy)" class="policy" ng-show="policyService.canShowPolicyInBuyList(policy)">
-							{{policy.name}} {{policy.cost | currency}}<br />
-							{{policy.description}}
+								<h3>{{policy.name}}</h3>
+								Cost: {{policy.cost | currency}}<br />
+								<div ng-repeat="effect in policy.effects">
+									{{policyService.getPrettyEffectString(effect)}}
+								</div>
 							</button>
 						</div>
 						
